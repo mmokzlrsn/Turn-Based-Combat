@@ -20,10 +20,6 @@ public class BattleSystem : MonoBehaviour
     UnitDisplay playerUnit;
     UnitDisplay enemyUnit;
 
-    public UnitDisplay playerHUD;
-    public UnitDisplay enemyHUD;
-
-
     public BattleState state;
     
 
@@ -45,10 +41,11 @@ public class BattleSystem : MonoBehaviour
 
         dialogueText.text = "A wild " + enemyUnit.unit.unitName + " approaches.";
 
-        playerHUD.SetUnitDisplayer();
-        
+        playerUnit.SetUnitDisplayer();
+        enemyUnit.SetUnitDisplayer();
 
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(1f);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
@@ -62,12 +59,61 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerAttack()
     {
         //dmg the enemy
-        enemyUnit.unit.TakeDamage(playerUnit.unit.damage);
+        bool isDead = enemyUnit.unit.TakeDamage(playerUnit.unit.damage);
+        enemyUnit.SetHP(enemyUnit.unit.currentHP);
+        dialogueText.text = "The attack is succesful!";
 
-        yield return new WaitForSeconds(2f); 
+        
         //check if enemy is dead
         //change state based on what happened
+        if( isDead)
+        {
+            
+            state = BattleState.WON;
+            yield return new WaitForSeconds(.1f);
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
 
+    IEnumerator EnemyTurn()
+    {
+        dialogueText.text = enemyUnit.unit.unitName + " attacks!";
+
+        yield return new WaitForSeconds(.5f);
+
+        bool isDead = playerUnit.unit.TakeDamage(enemyUnit.unit.damage);
+
+        playerUnit.SetHP(playerUnit.unit.currentHP);
+        yield return new WaitForSeconds(.5f);
+
+        if (isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+    }
+
+
+    void EndBattle()
+    {
+        if(state == BattleState.WON)
+        {
+            dialogueText.text = "YOU WON";
+        }
+        else if(state == BattleState.LOST)
+        {
+            dialogueText.text = "YOU LOST";
+        }
     }
 
     public void OnAttackButton()

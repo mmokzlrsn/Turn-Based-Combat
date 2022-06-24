@@ -15,6 +15,6 @@ MonoBehaviour:
   unitName: Girl
   artwork: {fileID: 9101278813714116849, guid: 55ee74c627a39a147b1b68c115bbbd5e, type: 3}
   unitLevel: 12
-  damage: 6
+  damage: 2
   maxHP: 30
-  currentHP: 25
+  currentHP: 11

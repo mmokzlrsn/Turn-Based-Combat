@@ -20,7 +20,6 @@ public class UnitDisplay : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-
         SetUnitDisplayer();
     }
 
