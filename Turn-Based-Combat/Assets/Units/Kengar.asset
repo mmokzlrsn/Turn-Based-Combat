@@ -15,6 +15,6 @@ MonoBehaviour:
   unitName: Kengar
   artwork: {fileID: 21300000, guid: 4584aca3af1d16741af853776b6139c3, type: 3}
   unitLevel: 5
-  damage: 1
+  damage: 2
   maxHP: 20
-  currentHP: 0
+  currentHP: 6

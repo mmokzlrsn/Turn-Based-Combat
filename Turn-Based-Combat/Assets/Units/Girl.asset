@@ -17,4 +17,4 @@ MonoBehaviour:
   unitLevel: 12
   damage: 2
   maxHP: 30
-  currentHP: 11
+  currentHP: 16
