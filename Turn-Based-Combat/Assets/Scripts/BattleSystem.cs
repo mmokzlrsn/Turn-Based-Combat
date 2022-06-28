@@ -21,15 +21,20 @@ public class BattleSystem : MonoBehaviour
     UnitDisplay enemyUnit;
 
     public BattleState state;
-    
 
+    public List<Button> Move;
+    public List<TextMeshProUGUI> MoveText;
 
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
 
+        Move[0].onClick.AddListener(OnAttackButton);
+        MoveText[0].text = Move[0].onClick.GetPersistentMethodName(0);
     }
+
+     
 
     IEnumerator SetupBattle()
     {
@@ -80,6 +85,19 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    IEnumerator PlayerHeal()
+    {
+        playerUnit.unit.Heal(5);
+
+        playerUnit.SetHP(playerUnit.unit.currentHP);
+        dialogueText.text = "You feel renewed strength!";
+
+        yield return new WaitForSeconds(.1f);
+
+        state = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
     IEnumerator EnemyTurn()
     {
         dialogueText.text = enemyUnit.unit.unitName + " attacks!";
@@ -122,6 +140,14 @@ public class BattleSystem : MonoBehaviour
             return;
 
         StartCoroutine(PlayerAttack());
+    }
+
+    public void OnHealButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerHeal());
     }
 
 }

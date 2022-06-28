@@ -28,5 +28,12 @@ public class Unit : ScriptableObject
             return false;
     }
 
-    
+    public void Heal(int heal)
+    {
+
+        currentHP += heal;
+        if (currentHP > maxHP)
+            currentHP = maxHP;
+
+    }
 }

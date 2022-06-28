@@ -1729,6 +1729,16 @@ MonoBehaviour:
   enemyBattleStation: {fileID: 1282363234}
   dialogueText: {fileID: 94059197}
   state: 0
+  Move:
+  - {fileID: 1383824920}
+  - {fileID: 2125897971}
+  - {fileID: 841419804}
+  - {fileID: 307439776}
+  MoveText:
+  - {fileID: 880431423}
+  - {fileID: 319038257}
+  - {fileID: 2075197618}
+  - {fileID: 1107308514}
 --- !u!1 &1959928489
 GameObject:
   m_ObjectHideFlags: 0
